@@ -18,14 +18,17 @@ const userData = reactive({
 });
 
 onMounted(async () => {
+  // 初始化
   liff
     .init({
-      liffId: "2005900855-GEBggzLL",
+      liffId: "2005900855-GEBggzLL", // 在Liff頁面取得liff的Id
     })
     .then(() => {
+      // 判斷有無登入
       if (!liff.isLoggedIn()) {
         liff.login({ redirectUri: window.location.href });
       }
+      // 取得使用者資料（userId, name)
       liff.getProfile().then(function (profile) {
         userData.profile = profile;
         console.log(userData.profile);
@@ -35,6 +38,7 @@ onMounted(async () => {
       console.log(err.code, err.message);
     });
 });
+
 
 function sendTargetPicker(messageType) {
   if (!liff.isLoggedIn()) {
@@ -282,6 +286,8 @@ function sendTargetPicker(messageType) {
         },
       };
     }
+
+    // 分享訊息給好友
     liff
       .shareTargetPicker([message])
       .then(function (res) {
@@ -292,11 +298,12 @@ function sendTargetPicker(messageType) {
         }
       })
       .catch(function (error) {
-        console.log("something wrong happen");
+        console.log("something wrong happen", error);
       });
   }
 }
 
+// 登出
 function logout() {
   if (liff.isLoggedIn) {
     liff.logout();
