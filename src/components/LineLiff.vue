@@ -3,9 +3,9 @@
     <p class="displayName">{{ userData.profile.displayName }} ,你好</p>
 
     <button @click="sendTargetPicker('morning')">說早安</button>
-    <button @click="sendTargetPicker('night')">說晚安</button>
+    <button @click="sendTargetPicker('ticket')">ticket</button>
     <button @click="sendTargetPicker('job')">找工作</button>
-    
+
     <button @click="logout()">登出</button>
   </div>
 </template>
@@ -39,11 +39,8 @@ onMounted(async () => {
     });
 });
 
-
+// flex message
 function sendTargetPicker(messageType) {
-  if (!liff.isLoggedIn()) {
-    liff.login({ redirectUri: window.location.href });
-  }
   if (liff.isApiAvailable("shareTargetPicker")) {
     let message;
 
@@ -128,15 +125,15 @@ function sendTargetPicker(messageType) {
           },
         },
       };
-    } else if (messageType == "night") {
+    } else if (messageType == "ticket") {
       message = {
         type: "flex",
-        altText: "Good Night",
+        altText: "Your ticket",
         contents: {
           type: "bubble",
           hero: {
             type: "image",
-            url: "https://i.imgur.com/IN5FhyR.jpeg",
+            url: "https://developers-resource.landpress.line.me/fx/img/01_3_movie.png",
             size: "full",
             aspectRatio: "20:13",
             aspectMode: "cover",
@@ -149,63 +146,152 @@ function sendTargetPicker(messageType) {
             type: "box",
             layout: "vertical",
             spacing: "md",
-            action: {
-              type: "uri",
-              uri: "https://line.me/",
-            },
             contents: [
               {
                 type: "text",
-                text: "Good Night",
-                size: "xl",
+                text: "BROWN'S ADVENTURE\nIN MOVIE",
+                wrap: true,
                 weight: "bold",
+                gravity: "center",
+                size: "xl",
+              },
+              {
+                type: "box",
+                layout: "baseline",
+                margin: "md",
+                contents: [
+                  {
+                    type: "icon",
+                    size: "sm",
+                    url: "https://developers-resource.landpress.line.me/fx/img/review_gold_star_28.png",
+                  },
+                  {
+                    type: "icon",
+                    size: "sm",
+                    url: "https://developers-resource.landpress.line.me/fx/img/review_gold_star_28.png",
+                  },
+                  {
+                    type: "icon",
+                    size: "sm",
+                    url: "https://developers-resource.landpress.line.me/fx/img/review_gold_star_28.png",
+                  },
+                  {
+                    type: "icon",
+                    size: "sm",
+                    url: "https://developers-resource.landpress.line.me/fx/img/review_gold_star_28.png",
+                  },
+                  {
+                    type: "icon",
+                    size: "sm",
+                    url: "https://developers-resource.landpress.line.me/fx/img/review_gray_star_28.png",
+                  },
+                  {
+                    type: "text",
+                    text: "4.0",
+                    size: "sm",
+                    color: "#999999",
+                    margin: "md",
+                    flex: 0,
+                  },
+                ],
               },
               {
                 type: "box",
                 layout: "vertical",
+                margin: "lg",
                 spacing: "sm",
                 contents: [
                   {
                     type: "box",
                     layout: "baseline",
+                    spacing: "sm",
                     contents: [
                       {
                         type: "text",
-                        text: "祝你做個好夢",
-                        weight: "bold",
-                        margin: "sm",
-                        flex: 0,
+                        text: "Date",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1,
+                      },
+                      {
+                        type: "text",
+                        text: "Monday 25, 9:00PM",
+                        wrap: true,
+                        size: "sm",
+                        color: "#666666",
+                        flex: 4,
                       },
                     ],
                   },
                   {
                     type: "box",
                     layout: "baseline",
+                    spacing: "sm",
                     contents: [
                       {
                         type: "text",
-                        text: "舒舒服服快快樂樂",
-                        weight: "bold",
-                        margin: "sm",
-                        flex: 0,
+                        text: "Place",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1,
+                      },
+                      {
+                        type: "text",
+                        text: "7 Floor, No.3",
+                        wrap: true,
+                        color: "#666666",
+                        size: "sm",
+                        flex: 4,
+                      },
+                    ],
+                  },
+                  {
+                    type: "box",
+                    layout: "baseline",
+                    spacing: "sm",
+                    contents: [
+                      {
+                        type: "text",
+                        text: "Seats",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1,
+                      },
+                      {
+                        type: "text",
+                        text: "C Row, 18 Seat",
+                        wrap: true,
+                        color: "#666666",
+                        size: "sm",
+                        flex: 4,
                       },
                     ],
                   },
                 ],
               },
               {
-                type: "text",
-                text: "sleeping ...",
-                wrap: true,
-                color: "#aaaaaa",
-                size: "xxs",
+                type: "box",
+                layout: "vertical",
+                margin: "xxl",
+                contents: [
+                  {
+                    type: "image",
+                    url: "https://developers-resource.landpress.line.me/fx/img/linecorp_code_withborder.png",
+                    aspectMode: "cover",
+                    size: "xl",
+                    margin: "md",
+                  },
+                  {
+                    type: "text",
+                    text: "You can enter the theater by using this code instead of a ticket",
+                    color: "#aaaaaa",
+                    wrap: true,
+                    margin: "xxl",
+                    size: "xs",
+                  },
+                ],
               },
             ],
-          },
-          footer: {
-            type: "box",
-            layout: "vertical",
-            contents: [],
           },
         },
       };
